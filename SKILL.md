@@ -49,4 +49,4 @@
 ## 版本信息
 - 版本: 1.0.0
 - 最后更新: 2026-03-23
-- 作者: OpenClaw Community
+- 作者: fredthegreenhand
