@@ -1,7 +1,7 @@
 name: "华为运动健康数据处理"
 description: "从华为运动健康API获取运动数据并进行分析"
 version: "1.0.0"
-author: "OpenClaw Community"
+author: "fredthegreenhand"
 
 # 认证配置
 auth:
