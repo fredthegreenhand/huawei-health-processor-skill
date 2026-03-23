@@ -1,5 +1,4 @@
 # huawei-health-processor-skill
-src="https://img.shields.io/badge/License-MIT-yellow.svg">
 <img alt="Python 3.8+" src="https://img.shields.io/badge/python-3.8+-blue.svg">
 <img alt="OpenClaw" src="https://img.shields.io/badge/OpenClaw-compatible-green.svg">
 一个功能强大的OpenClaw技能,用于从华为运动健康服务API获取用户的运动健康数据,并进行自动化分析处理。
