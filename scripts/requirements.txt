@@ -1,0 +1,24 @@
+# 华为运动健康数据处理 Skill 依赖包
+# Python 3.8+
+
+# HTTP请求处理
+requests>=2.31.0
+
+# 数据分析处理
+pandas>=2.0.0
+numpy>=1.24.0
+
+# 日期时间处理
+python-dateutil>=2.8.2
+pytz>=2023.3
+
+# 数据可视化(可选)
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# 配置文件解析
+pyyaml>=6.0
+
+# JWT令牌处理(如需要)
+pyjwt>=2.8.0
+cryptography>=41.0.0

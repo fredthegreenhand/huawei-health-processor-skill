@@ -1,0 +1,121 @@
+name: "华为运动健康数据处理"
+description: "从华为运动健康API获取运动数据并进行分析"
+version: "1.0.0"
+author: "OpenClaw Community"
+
+# 认证配置
+auth:
+  client_id: "${HUAWEI_CLIENT_ID}"
+  client_secret: "${HUAWEI_CLIENT_SECRET}"
+  redirect_uri: "http://localhost:8080/callback"
+  scope: "openid profile healthkit.read healthkit.write"
+  # OAuth 2.0端点
+  auth_url: "https://oauth-login.cloud.huawei.com/oauth2/v3/authorize"
+  token_url: "https://oauth-login.cloud.huawei.com/oauth2/v3/token"
+
+# API配置
+api:
+  base_url: "https://health-api.cloud.huawei.com/healthkit/v2"
+  timeout: 30
+  retry_times: 3
+  retry_delay: 1  # 重试延迟(秒)
+
+# 数据配置
+data:
+  default_time_range: "30d"
+  max_batch_size: 100
+  supported_types:
+    steps:
+      data_type: "com.huawei.continuous.steps.delta"
+      name: "步数"
+      unit: "steps"
+    calories:
+      data_type: "com.huawei.continuous.calories.burnt"
+      name: "卡路里"
+      unit: "kcal"
+    distance:
+      data_type: "com.huawei.continuous.distance.delta"
+      name: "距离"
+      unit: "km"
+    heart_rate:
+      data_type: "com.huawei.instantaneous.heart_rate"
+      name: "心率"
+      unit: "bpm"
+    sleep:
+      data_type: "com.huawei.continuous.sleep.summary"
+      name: "睡眠"
+      unit: "minutes"
+    spo2:
+      data_type: "com.huawei.instantaneous.spo2"
+      name: "血氧"
+      unit: "%"
+    stress:
+      data_type: "com.huawei.instantaneous.stress"
+      name: "压力"
+      unit: "score"
+
+# 数据处理配置
+processing:
+  # 异常值检测
+  anomaly_detection:
+    enabled: true
+    method: "iqr"  # iqr(四分位距)或zscore(Z分数)
+    threshold: 1.5
+  
+  # 缺失值处理
+  missing_value:
+    strategy: "interpolate"  # interpolate(插值)、forward_fill(前向填充)、drop(删除)
+  
+  # 时区设置
+  timezone: "Asia/Shanghai"
+  
+  # 数据缓存
+  cache:
+    enabled: true
+    ttl: 3600  # 缓存有效期(秒)
+    cache_dir: "./cache"
+
+# 分析配置
+analysis:
+  # 趋势分析
+  trend:
+    enabled: true
+    window_size: 7  # 移动平均窗口(天)
+  
+  # 统计指标
+  statistics:
+    calculate_mean: true
+    calculate_median: true
+    calculate_std: true
+    calculate_min_max: true
+  
+  # 报告生成
+  report:
+    include_charts: true
+    chart_format: "png"
+    include_summary: true
+    include_recommendations: true
+
+# 日志配置
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  log_file: "./logs/huawei_health.log"
+  max_file_size: "10MB"
+  backup_count: 5
+
+# 安全配置
+security:
+  # Token存储
+  token_storage:
+    type: "file"  # file(文件)或keyring(系统密钥环)
+    encrypt: true
+    file_path: "./config/token.json"
+  
+  # SSL验证
+  ssl_verify: true
+  
+  # 请求限流
+  rate_limit:
+    enabled: true
+    max_requests: 100
+    time_window: 3600  # 时间窗口(秒)
